@@ -29,7 +29,8 @@ public enum LigaEnum {
 	  HIERRO1("IRON I", 24),
 	  HIERRO2("IRON II", 25),
 	  HIERRO3("IRON III", 26),
-	  HIERRO4("IRON IV", 27);
+	  HIERRO4("IRON IV", 27),
+	  UNRANKED("UNRANKED",28);
 	
 	  public String getCode() {
 		return code;

@@ -52,14 +52,14 @@ public class SoloQRestController {
 
 	public void inicializarJugadores() {
 
-		Jugador jose = getJugador("oxdy6A_GTB1zTcoTTerbmgstZCezKfhrlDNl8u3D_EgvQ-E");
-		Jugador alex = getJugador("KI23PqEYbsy_0Hxybh2Ar6cq45dVuCGiq4kieLa0S5OMfRw");
-		Jugador rafa = getJugador("NFUbdOUSypAoSH_Do9tZ2-vuLnD2yXLnaZLfFcNZRr4QDAo");
-		Jugador alon = getJugador("cTUsLBcWUGoHjVLL-Jh0Q9xyGZxEP3osmLsPbeYdvIXyG2E");
-		Jugador ivan = getJugador("BcqLuy2Av5ViXlV-gtLFq_TIpORM0VXJLVxKSqa1TIZSsfk");
-		Jugador dario = getJugador("F9ub3iYrXpKXAd19tVkCM-kq-8EQ5_rCnBanfnXUzCEUK2o");
-		Jugador sillero = getJugador("fpaKzFuFsvA2cdNR2gjdXn57hGjtCJypTaNBcA_z3EtNYDnC");
-		Jugador juan = getJugador("qLzUWEsuWjSSQm3PCEEf53z9r6hEkiuyYCZ8rg_JwxIfcac");
+		Jugador jose = getJugador("W5kuaFxov-IUGqs5yqJygyOsSopFXRBP7OkW_Jo7CkWttMsav5cp3yiStA","Maikel Schumaker");
+		Jugador alex = getJugador("pOmllGjd6ei5-87VimXEKvFVO7cNCEzZ4d7sc7h1V54UcVtTdy0gMXSA5g","ManchaitoDeJager");
+		Jugador rafa = getJugador("S5-WrcM9Bgs5wfIk4vrY5ravJb2kplFFbWLxdKsPaeY_nlAM4RKmjsf-hw","RandolphTre");
+		Jugador alon = getJugador("cTUsLBcWUGoHjVLL-Jh0Q9xyGZxEP3osmLsPbeYdvIXyG2E","");
+		Jugador ivan = getJugador("BcqLuy2Av5ViXlV-gtLFq_TIpORM0VXJLVxKSqa1TIZSsfk","");
+		Jugador dario = getJugador("F9ub3iYrXpKXAd19tVkCM-kq-8EQ5_rCnBanfnXUzCEUK2o","");
+		Jugador sillero = getJugador("fpaKzFuFsvA2cdNR2gjdXn57hGjtCJypTaNBcA_z3EtNYDnC","");
+		Jugador juan = getJugador("3dgcgK9wJOvqdlYBQuqh7ldSxI9gX90dH6kPkiCV1vT_0hikU91lmJ8v8w","Alons Nightmare");
 		jose.setNombreReal("Jose");
 		alex.setNombreReal("Alex");
 		rafa.setNombreReal("Rafa");
@@ -77,14 +77,18 @@ public class SoloQRestController {
 		jugadores.add(dario);
 		jugadores.add(sillero);
 		jugadores.add(juan);
+		try {
 		jugadores.forEach(x -> System.out.println("valor: " + x.getLiga().getValue()));
 		jugadores = (ArrayList<Jugador>) jugadores.stream().sorted(Comparator.comparing(x -> x.getLiga().getValue()))
 				.collect(Collectors.toList());
 		jugadores.forEach(x -> System.out.println("valor2: " + x.getLiga().getValue()));
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
 
 	}
 
-	public Jugador getJugador(String key) {
+	public Jugador getJugador(String key,String nombre) {
 		HttpClient client = HttpClient.newHttpClient();
 		HttpRequest request = HttpRequest.newBuilder()
 				.uri(URI.create("https://euw1.api.riotgames.com/lol/league/v4/entries/by-summoner/" + key
@@ -92,22 +96,34 @@ public class SoloQRestController {
 				.build();
 		String json = client.sendAsync(request, HttpResponse.BodyHandlers.ofString()).thenApply(HttpResponse::body)
 				.join();
-		JSONArray jsonArray = new JSONArray(json);
-		ArrayList<JSONObject> jsonObjArray = new ArrayList<JSONObject>();
-		ArrayList<JSONObject> jsonObjArray2 = new ArrayList<JSONObject>();
-		jsonArray.forEach(x -> jsonObjArray.add((JSONObject) x));
-		jsonObjArray2 = (ArrayList<JSONObject>) jsonObjArray.stream()
-				.filter(x -> x.getString("queueType").equals("RANKED_SOLO_5x5")).collect(Collectors.toList());
-		System.out.println(jsonObjArray2.get(0));
 		Jugador jugador = new Jugador();
-		for (int i = 0; i < jsonObjArray2.size(); i++) {
-			JSONObject jugadorJson = jsonObjArray2.get(i);
-			jugador.setNombre(jugadorJson.getString("summonerName"));
-			jugador.setWins(jugadorJson.getInt("wins"));
-			jugador.setLoses(jugadorJson.getInt("losses"));
-			jugador.setLiga(LigaEnum.valueForCode(jugadorJson.getString("tier") + " " + jugadorJson.getString("rank")));
-			jugador.setLps(jugadorJson.getInt("leaguePoints"));
-			jugador.setRacha(jugadorJson.getBoolean("hotStreak"));
+		if (json.equals("[]")) {
+			System.out.println("vacio: ");
+			jugador.setLiga(LigaEnum.UNRANKED);
+			jugador.setNombre(nombre);
+			jugador.setWins(0);
+			jugador.setLoses(0);
+			
+		} else {
+			JSONArray jsonArray = new JSONArray(json);
+			ArrayList<JSONObject> jsonObjArray = new ArrayList<JSONObject>();
+			ArrayList<JSONObject> jsonObjArray2 = new ArrayList<JSONObject>();
+			jsonArray.forEach(x -> jsonObjArray.add((JSONObject) x));
+			jsonObjArray2 = (ArrayList<JSONObject>) jsonObjArray.stream()
+					.filter(x -> x.getString("queueType").equals("RANKED_SOLO_5x5")).collect(Collectors.toList());
+			System.out.println(jsonObjArray2.get(0));
+			
+
+			for (int i = 0; i < jsonObjArray2.size(); i++) {
+				JSONObject jugadorJson = jsonObjArray2.get(i);
+				jugador.setNombre(jugadorJson.getString("summonerName"));
+				jugador.setWins(jugadorJson.getInt("wins"));
+				jugador.setLoses(jugadorJson.getInt("losses"));
+				jugador.setLiga(
+						LigaEnum.valueForCode(jugadorJson.getString("tier") + " " + jugadorJson.getString("rank")));
+				jugador.setLps(jugadorJson.getInt("leaguePoints"));
+				jugador.setRacha(jugadorJson.getBoolean("hotStreak"));
+			}
 		}
 		return jugador;
 	}
