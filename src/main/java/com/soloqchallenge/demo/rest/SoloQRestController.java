@@ -44,9 +44,8 @@ public class SoloQRestController {
 
 	@GetMapping("/jugadores")
 	public ArrayList<Jugador> jugadores() {
-		if (jugadores.isEmpty()) {
-			inicializarJugadores();
-		}
+		jugadores.clear();
+		inicializarJugadores();
 		return jugadores;
 	}
 
