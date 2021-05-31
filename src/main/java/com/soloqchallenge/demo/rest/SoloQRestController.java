@@ -91,7 +91,7 @@ public class SoloQRestController {
 		HttpClient client = HttpClient.newHttpClient();
 		HttpRequest request = HttpRequest.newBuilder()
 				.uri(URI.create("https://euw1.api.riotgames.com/lol/league/v4/entries/by-summoner/" + key
-						+ "?api_key=RGAPI-e4903a40-8dae-46f0-a5fe-5c96d00bcb0d"))
+						+ "?api_key=RGAPI-454f467d-3380-4f76-b6d7-d0d845353ef2"))
 				.build();
 		String json = client.sendAsync(request, HttpResponse.BodyHandlers.ofString()).thenApply(HttpResponse::body)
 				.join();
@@ -104,7 +104,8 @@ public class SoloQRestController {
 			jugador.setLoses(0);
 			
 		} else {
-			JSONArray jsonArray = new JSONArray(json);
+			System.out.println("json: "+json);
+			JSONArray jsonArray = new JSONArray(json);			
 			ArrayList<JSONObject> jsonObjArray = new ArrayList<JSONObject>();
 			ArrayList<JSONObject> jsonObjArray2 = new ArrayList<JSONObject>();
 			jsonArray.forEach(x -> jsonObjArray.add((JSONObject) x));
