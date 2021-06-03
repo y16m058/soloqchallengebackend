@@ -54,10 +54,10 @@ public class SoloQRestController {
 		Jugador jose = getJugador("W5kuaFxov-IUGqs5yqJygyOsSopFXRBP7OkW_Jo7CkWttMsav5cp3yiStA","Maikel Schumaker");
 		Jugador alex = getJugador("pOmllGjd6ei5-87VimXEKvFVO7cNCEzZ4d7sc7h1V54UcVtTdy0gMXSA5g","ManchaitoDeJager");
 		Jugador rafa = getJugador("S5-WrcM9Bgs5wfIk4vrY5ravJb2kplFFbWLxdKsPaeY_nlAM4RKmjsf-hw","RandolphTre");
-		Jugador alon = getJugador("cTUsLBcWUGoHjVLL-Jh0Q9xyGZxEP3osmLsPbeYdvIXyG2E","");
-		Jugador ivan = getJugador("BcqLuy2Av5ViXlV-gtLFq_TIpORM0VXJLVxKSqa1TIZSsfk","");
-		Jugador dario = getJugador("F9ub3iYrXpKXAd19tVkCM-kq-8EQ5_rCnBanfnXUzCEUK2o","");
-		Jugador sillero = getJugador("fpaKzFuFsvA2cdNR2gjdXn57hGjtCJypTaNBcA_z3EtNYDnC","");
+		Jugador alon = getJugador("olKOiSoJc1MQtAeTrY2xIws2P-ZLYOMnE-McgxwBLvBJVwnCn8xtpzuT6w","bot juan");
+		Jugador ivan = getJugador("qFSdx7SdMaGPOmb_kpSwRumGmK26x2ov3Ix4SX4h36YIHx-P7ldWSAQ5Xg","xTupu");
+		Jugador dario = getJugador("amByFKm6tGR0m9pY_fJFk-2Xrs4nnxT7YEqmWx88301jDtAcTmnkCg5V6Q","REY DIOS PLATA");
+		Jugador sillero = getJugador("nyuwdgfkD_6DqvsXP4Pze0KO6uWOQGRqCy7rEpP9SW2O-ZYdLWHFBTROWw","WerlyBkristo");
 		Jugador juan = getJugador("3dgcgK9wJOvqdlYBQuqh7ldSxI9gX90dH6kPkiCV1vT_0hikU91lmJ8v8w","Alons Nightmare");
 		jose.setNombreReal("Jose");
 		alex.setNombreReal("Alex");
@@ -91,7 +91,7 @@ public class SoloQRestController {
 		HttpClient client = HttpClient.newHttpClient();
 		HttpRequest request = HttpRequest.newBuilder()
 				.uri(URI.create("https://euw1.api.riotgames.com/lol/league/v4/entries/by-summoner/" + key
-						+ "?api_key=RGAPI-454f467d-3380-4f76-b6d7-d0d845353ef2"))
+						+ "?api_key=RGAPI-17da088a-a2ed-401d-a41b-ce430303d8cc"))
 				.build();
 		String json = client.sendAsync(request, HttpResponse.BodyHandlers.ofString()).thenApply(HttpResponse::body)
 				.join();
