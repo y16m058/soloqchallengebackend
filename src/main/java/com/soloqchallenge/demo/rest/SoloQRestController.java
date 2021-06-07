@@ -68,6 +68,7 @@ public class SoloQRestController {
 		dario.setNombreReal("ReyDiosPlata");
 		sillero.setNombreReal("Sille");
 		juan.setNombreReal("Juan");
+		andres.setNombreReal("Andres");
 
 		jugadores.add(jose);
 		jugadores.add(alex);
