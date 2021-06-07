@@ -59,6 +59,7 @@ public class SoloQRestController {
 		Jugador dario = getJugador("amByFKm6tGR0m9pY_fJFk-2Xrs4nnxT7YEqmWx88301jDtAcTmnkCg5V6Q","REY DIOS PLATA");
 		Jugador sillero = getJugador("nyuwdgfkD_6DqvsXP4Pze0KO6uWOQGRqCy7rEpP9SW2O-ZYdLWHFBTROWw","WerlyBkristo");
 		Jugador juan = getJugador("3dgcgK9wJOvqdlYBQuqh7ldSxI9gX90dH6kPkiCV1vT_0hikU91lmJ8v8w","Alons Nightmare");
+		Jugador andres = getJugador("fvA2W0UF_xdAn1WBxMUMF27DtE6VMzz4ragGTvvdRSzoPHzWehDgmfs33A","dnxkuy");
 		jose.setNombreReal("Jose");
 		alex.setNombreReal("Alex");
 		rafa.setNombreReal("Rafa");
@@ -76,6 +77,7 @@ public class SoloQRestController {
 		jugadores.add(dario);
 		jugadores.add(sillero);
 		jugadores.add(juan);
+		jugadores.add(andres);
 		try {
 		jugadores.forEach(x -> System.out.println("valor: " + x.getLiga().getValue()));
 		jugadores = (ArrayList<Jugador>) jugadores.stream().sorted(Comparator.comparing(x -> x.getLiga().getValue()))
@@ -91,7 +93,7 @@ public class SoloQRestController {
 		HttpClient client = HttpClient.newHttpClient();
 		HttpRequest request = HttpRequest.newBuilder()
 				.uri(URI.create("https://euw1.api.riotgames.com/lol/league/v4/entries/by-summoner/" + key
-						+ "?api_key=RGAPI-17da088a-a2ed-401d-a41b-ce430303d8cc"))
+						+ "?api_key=RGAPI-d844be13-3561-4067-8a99-3f71df30b49d"))
 				.build();
 		String json = client.sendAsync(request, HttpResponse.BodyHandlers.ofString()).thenApply(HttpResponse::body)
 				.join();
