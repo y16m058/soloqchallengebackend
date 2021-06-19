@@ -91,6 +91,7 @@ public class SoloQRestController {
 	}
 
 	public Jugador getJugador(String key,String nombre) {
+		//edit 
 		HttpClient client = HttpClient.newHttpClient();
 		HttpRequest request = HttpRequest.newBuilder()
 				.uri(URI.create("https://euw1.api.riotgames.com/lol/league/v4/entries/by-summoner/" + key
