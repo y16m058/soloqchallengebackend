@@ -94,7 +94,7 @@ public class SoloQRestController {
 		HttpClient client = HttpClient.newHttpClient();
 		HttpRequest request = HttpRequest.newBuilder()
 				.uri(URI.create("https://euw1.api.riotgames.com/lol/league/v4/entries/by-summoner/" + key
-						+ "?api_key=RGAPI-f37307df-1292-4a0a-8537-f57231c41831"))
+						+ "?api_key=RGAPI-ecdc56d9-1dbb-400f-b3c1-ccdcf8ca8f32"))
 				.build();
 		String json = client.sendAsync(request, HttpResponse.BodyHandlers.ofString()).thenApply(HttpResponse::body)
 				.join();
